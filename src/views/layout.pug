@@ -1,7 +1,11 @@
 doctype html 
 html(lang="ko")
     head 
-        block head 
+        title #{headTitle} | wetube
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body 
-        block content
-        include partial/footer.pug
+        main 
+            header 
+            block content
+
+            include partial/footer.pug
