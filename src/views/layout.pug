@@ -4,8 +4,12 @@ html(lang="ko")
         title #{headTitle} | wetube
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body 
+        header 
+              h1=headTitle 
+              nav 
+                  ul 
+                    li
+                        a(href="/video/upload") upload video!
         main 
-            h1=headTitle 
-            header 
             block content
     include partial/footer
