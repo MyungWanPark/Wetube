@@ -1,49 +1,24 @@
-let videos = [
-  {
-    title: "first video",
-    views: 30,
-    comments: 3,
-    like: 1000,
-    share: 10,
-    id: 1,
-  },
-  {
-    title: "second video",
-    views: 30,
-    comments: 3,
-    like: 1000,
-    share: 10,
-    id: 2,
-  },
-  {
-    title: "third video",
-    views: 30,
-    comments: 3,
-    like: 1000,
-    share: 10,
-    id: 3,
-  },
-];
+import Video from "../model/Video";
 
-export const home = (req, res) => {
-  return res.render("home", { headTitle: "home", videos });
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    return res.render("home", { headTitle: "home", videos });
+  } catch {}
 };
-export const see = (req, res) => {
+export const see = async (req, res) => {
   const { id } = req.params;
-  const video = videos[id - 1];
-  return res.render("watch", { headTitle: `watch ${video.title}`, video });
+  const video = await Video.findById(id);
+  return res.render("watch", { headTitle: video.title, video });
 };
 export const getEdit = (req, res) => {
   const { id } = req.params;
-  const video = videos[id - 1];
-  return res.render("edit", { headTitle: `editing ${video.title}`, video });
+  return res.render("edit", { headTitle: `editing` });
 };
 
 export const postEdit = (req, res) => {
   const { title } = req.body;
   const { id } = req.params;
-  const video = videos[id - 1];
-  video.title = title;
   return res.redirect(`/video/${id}`);
 };
 
@@ -51,17 +26,19 @@ export const getUpload = (req, res) => {
   return res.render("upload", { headTitle: "upload video" });
 };
 
-export const postUpload = (req, res) => {
-  const { title } = req.body;
-  const newVideo = {
-    title,
-    views: 300,
-    comments: 3,
-    like: 1000,
-    share: 10,
-    id: videos.length + 1,
-  };
-
-  videos.push(newVideo);
-  return res.redirect("/");
+export const postUpload = async (req, res) => {
+  const { title, description, hashtags } = req.body;
+  try {
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(",").map((word) => `#${word}`),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("upload", {
+      headTitle: "upload video",
+      errorMessage: error._message,
+    });
+  }
 };

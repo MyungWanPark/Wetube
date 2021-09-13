@@ -1,6 +1,9 @@
 extends layout
 
 block content 
-    h1 #{video.views} #{video.views <= 1 ? "view" : "views"}
+    div
+        h1=video.description 
+        small=video.createdAt
+
     a(href=`${video.id}/edit`) edit video &rarr;
     

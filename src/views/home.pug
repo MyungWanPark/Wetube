@@ -4,7 +4,7 @@ include mixins/videoListTemplate
 block content 
     h1 Welcome Home
 
-    each potato in videos 
+    each potato in videos
         +videoListTemplate(potato) 
     else 
         li nothing found

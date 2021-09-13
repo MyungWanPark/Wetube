@@ -2,8 +2,6 @@ mixin videoListTemplate(info)
     div
         h4
             a(href=`/video/${info.id}`)=info.title
-        ul 
-            li views: #{info.views}
-            li #{info.comments} comments 
-            li #{info.like} likes 
-            li #{info.share} shares
+        p=info.description
+        small=info.createdAt 
+        hr
