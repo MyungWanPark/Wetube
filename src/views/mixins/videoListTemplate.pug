@@ -3,5 +3,9 @@ mixin videoListTemplate(info)
         h4
             a(href=`/video/${info.id}`)=info.title
         p=info.description
+        ul 
+            each hashtag in info.hashtags
+                li=hashtag 
+
         small=info.createdAt 
         hr

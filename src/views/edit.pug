@@ -1,7 +1,9 @@
 extends layout
 
 block content 
-    h4 change title of video
+    h4 update video
     form(method="POST")
         input(name="title" value=video.title placeholder="type a title here" required)
+        input(name="description" type="text" placeholder="write a description" required, minlength=20, value=video.description)
+        input(name="hashtags" type="text" placeholder="write hashtags and comma" required, value=video.hashtags.join())
         input(type="submit" value="Save") 
