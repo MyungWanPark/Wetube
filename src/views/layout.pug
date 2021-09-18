@@ -16,7 +16,7 @@ html(lang="ko")
                         a(href="/search") search
                     if loggedIn
                         li 
-                            a(href="logout") log out
+                            a(href="/user/logout") log out
                         li 
                             a(href="userProfile") #{loggeedInUser.username} 의 profile
                     else
