@@ -1,0 +1,8 @@
+extends layout
+
+block content 
+        input(name="email", placeholder="email", required, value=loggeedInUser.email)
+        input(name="username", placeholder="username",type="text", required, value=loggeedInUser.username)
+        input(name="name", placeholder="name",type="text", required, value=loggeedInUser.name)
+        input(name="location", placeholder="location",type="text", value=loggeedInUser.location)
+        input(type="submit" value="Update")

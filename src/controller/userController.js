@@ -108,7 +108,6 @@ export const finishWithGithub = async (req, res) => {
       })
     ).json();
 
-    console.log(userData);
     const emails = await (
       await fetch(`${githubApi}/user/emails`, {
         method: "GET",
@@ -124,7 +123,8 @@ export const finishWithGithub = async (req, res) => {
       return res.redirect("/login");
     }
     let user = await User.findOne({ email: emailObj.email });
-
+    console.log("user : ", user);
+    console.log("!user : ", !user);
     if (!user) {
       user = await User.create({
         email: emailObj.email,
@@ -135,16 +135,18 @@ export const finishWithGithub = async (req, res) => {
         socialOnly: true,
         location: userData.location,
       });
-      req.session.loggedIn = true;
-      req.session.user = user;
-
-      return res.redirect("/");
     }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    console.log("It comes to last");
+    return res.redirect("/");
   } else {
     return res.redirect("/login");
   }
 };
-export const edit = (req, res) => res.send("welcome User edit!");
+export const getEdit = (req, res) =>
+  res.render("edit-profile", { headTitle: "edit - profile" });
+export const postEdit = (req, res) => res.render("edit-profile");
 export const see = (req, res) => res.send("See profile");
 export const logout = (req, res) => {
   req.session.destroy();
