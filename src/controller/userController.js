@@ -1,6 +1,7 @@
 import User from "../model/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
+import session from "express-session";
 
 export const getJoin = (req, res) => res.render("join", { headTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -144,9 +145,50 @@ export const finishWithGithub = async (req, res) => {
     return res.redirect("/login");
   }
 };
-export const getEdit = (req, res) =>
-  res.render("edit-profile", { headTitle: "edit - profile" });
-export const postEdit = (req, res) => res.render("edit-profile");
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { headTitle: "edit - profile" });
+};
+
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { email, username, name, location },
+  } = req;
+
+  let changedEmail = null;
+  let changedUsername = null;
+
+  if (req.session.user.email !== email) {
+    changedEmail = email;
+  }
+  if (req.session.user.username !== username) {
+    changedUsername = username;
+  }
+  if (changedEmail || changedUsername) {
+    const foundUser = await User.findOne({
+      $or: [{ username: changedUsername }, { email: changedEmail }],
+    });
+    console.log("foundUser = ", foundUser);
+    if (foundUser) {
+      return res.status(400).render("edit-profile", {
+        headTitle: "Edit profile",
+        errorMessage: "username or email is already taken",
+      });
+    }
+  }
+
+  await User.findByIdAndUpdate(_id, {
+    email,
+    username,
+    name,
+    location,
+  });
+
+  return res.render("edit-profile");
+};
+
 export const see = (req, res) => res.send("See profile");
 export const logout = (req, res) => {
   req.session.destroy();

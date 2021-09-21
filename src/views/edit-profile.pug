@@ -1,6 +1,7 @@
 extends layout
 
-block content 
+block content
+    form(method="POST")
         input(name="email", placeholder="email", required, value=loggeedInUser.email)
         input(name="username", placeholder="username",type="text", required, value=loggeedInUser.username)
         input(name="name", placeholder="name",type="text", required, value=loggeedInUser.name)
