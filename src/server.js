@@ -27,12 +27,13 @@ app.use(
 
 app.use((req, res, next) => {
   req.sessionStore.all((error, sessions) => {
-    console.log(sessions);
+    // console.log(sessions);
     next();
   });
 });
 
 app.use(localMiddleware);
+app.use("/upload", express.static("upload"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/video", videoRouter);

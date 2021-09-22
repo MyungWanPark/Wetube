@@ -152,9 +152,10 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id },
+      user: { _id, avatar_url },
     },
     body: { email, username, name, location },
+    file,
   } = req;
 
   let changedEmail = null;
@@ -179,18 +180,64 @@ export const postEdit = async (req, res) => {
     }
   }
 
-  await User.findByIdAndUpdate(_id, {
-    email,
-    username,
-    name,
-    location,
-  });
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      avatar_url: file ? file.path : avatar_url,
+      email,
+      username,
+      name,
+      location,
+    },
+    { new: true }
+  );
 
-  return res.render("edit-profile");
+  req.session.user = updatedUser;
+
+  return res.redirect("/user/edit");
 };
 
 export const see = (req, res) => res.send("See profile");
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
+};
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly) {
+    return res.redirect("/");
+  }
+  return res.render("user/change-password", { headTitle: "Change Password" });
+};
+
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, password, password2 },
+  } = req;
+
+  const user = await User.findById(_id);
+
+  if (password !== password2) {
+    return res.status(400).render("user/change-password", {
+      headTitle: "Change Password",
+      errorMessage: "password doesn't match with confirmation password",
+    });
+  }
+
+  const passwordCompare = await bcrypt.compare(oldPassword, user.password);
+
+  if (!passwordCompare) {
+    return res.status(400).render("user/change-password", {
+      headTitle: "Change Password",
+      errorMessage: "password doesn't match with confirmation password",
+    });
+  }
+
+  user.password = password;
+  await user.save();
+
+  return res.redirect("/user/logout");
 };

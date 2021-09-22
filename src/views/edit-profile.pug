@@ -1,9 +1,15 @@
 extends layout
 
 block content
-    form(method="POST")
+    img(src="/"+loggeedInUser.avatar_url, width="100", height="100")
+    form(method="POST" enctype="multipart/form-data")
+        label(for="avatar") avatar
+        input(type="file" id="avatar" name="avatar" accept="image/*")
         input(name="email", placeholder="email", required, value=loggeedInUser.email)
         input(name="username", placeholder="username",type="text", required, value=loggeedInUser.username)
         input(name="name", placeholder="name",type="text", required, value=loggeedInUser.name)
         input(name="location", placeholder="location",type="text", value=loggeedInUser.location)
         input(type="submit" value="Update")
+        hr
+        if !loggeedInUser.socialOnly 
+            a(href="change-password") change password &rarr;
