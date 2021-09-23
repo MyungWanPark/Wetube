@@ -1,0 +1,10 @@
+extends ../layout
+include ../mixins/videoListTemplate
+
+block content 
+    h1 hello
+
+    each potato in videos
+        +videoListTemplate(potato) 
+    else 
+        li nothing found

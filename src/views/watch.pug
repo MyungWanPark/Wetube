@@ -1,11 +1,16 @@
 extends layout
 
-block content 
+block content
+    video(src="/"+video.videoUrl, controls)
     div
         h1=video.description 
         small=video.createdAt
+    div 
+        small uploaded by 
+            a(href=`/user/${video.owner._id}`)=video.owner.name
 
-    a(href=`${video.id}/edit`) edit video &rarr;
-    br
-    a(href=`${video.id}/delete`) delete video &rarr;
+    if String(video.owner._id) === String(loggeedInUser._id) 
+        a(href=`${video.id}/edit`) edit video &rarr;
+        br
+        a(href=`${video.id}/delete`) delete video &rarr;
     

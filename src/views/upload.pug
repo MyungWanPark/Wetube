@@ -4,7 +4,9 @@ block content
     if errorMessage
         span=errorMessage
 
-    form(method="POST")
+    form(method="POST" enctype="multipart/form-data")
+        label(for="video") video upload 
+        input(type="file" id="video" required, name="video", accept="video/*")
         input(name="title" type="text" placeholder="write a title" required, maxlength=80)
         input(name="description" type="text" placeholder="write a description" required, minlength=20)
         input(name="hashtags" type="text" placeholder="write hashtags and comma" required)

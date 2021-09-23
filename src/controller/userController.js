@@ -2,6 +2,7 @@ import User from "../model/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
 import session from "express-session";
+import Video from "../model/Video";
 
 export const getJoin = (req, res) => res.render("join", { headTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -146,7 +147,7 @@ export const finishWithGithub = async (req, res) => {
   }
 };
 export const getEdit = (req, res) => {
-  return res.render("edit-profile", { headTitle: "edit - profile" });
+  return res.render("edit-profile", { headTitle: "edit-profile" });
 };
 
 export const postEdit = async (req, res) => {
@@ -197,7 +198,20 @@ export const postEdit = async (req, res) => {
   return res.redirect("/user/edit");
 };
 
-export const see = (req, res) => res.send("See profile");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).render("404", { headTitle: "can't find user" });
+  }
+  const videos = await Video.find({ owner: user._id });
+
+  return res.render("user/profile", {
+    headTitle: user.name,
+    user,
+    videos,
+  });
+};
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");

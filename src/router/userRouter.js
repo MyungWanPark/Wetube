@@ -9,15 +9,19 @@ import {
   getChangePassword,
   postChangePassword,
 } from "../controller/userController";
-import { protectorMiddleware, publicMiddleware, upload } from "../middleware";
+import {
+  protectorMiddleware,
+  publicMiddleware,
+  avatarUpload,
+} from "../middleware";
 const userRouter = express.Router();
 
-userRouter.get("/:id(\\d+)", see);
+userRouter.get("/:id([0-9a-f]{24})", see);
 userRouter
   .route("/edit")
   .all(protectorMiddleware)
   .get(getEdit)
-  .post(upload.single("avatar"), postEdit);
+  .post(avatarUpload.single("avatar"), postEdit);
 userRouter
   .route("/change-password")
   .all(protectorMiddleware)
