@@ -125,8 +125,7 @@ export const finishWithGithub = async (req, res) => {
       return res.redirect("/login");
     }
     let user = await User.findOne({ email: emailObj.email });
-    console.log("user : ", user);
-    console.log("!user : ", !user);
+
     if (!user) {
       user = await User.create({
         email: emailObj.email,
@@ -200,16 +199,15 @@ export const postEdit = async (req, res) => {
 
 export const see = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("videos");
+  console.log("user :", user);
   if (!user) {
     return res.status(404).render("404", { headTitle: "can't find user" });
   }
-  const videos = await Video.find({ owner: user._id });
 
   return res.render("user/profile", {
     headTitle: user.name,
     user,
-    videos,
   });
 };
 export const logout = (req, res) => {
