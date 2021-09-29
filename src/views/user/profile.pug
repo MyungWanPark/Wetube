@@ -2,9 +2,11 @@ extends ../layout
 include ../mixins/videoListTemplate
 
 block content 
-    h1 hello
-
-    each potato in user.videos
-        +videoListTemplate(potato) 
-    else 
-        li nothing found
+    div.profile__data
+        img(src="/" + user.avatar_url).avatar
+        h3=user.name
+    div.video-grid
+        each potato in user.videos
+            +videoListTemplate(potato)
+        else
+            span.empty__message No videos found 

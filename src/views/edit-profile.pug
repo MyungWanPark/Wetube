@@ -1,15 +1,15 @@
 extends layout
 
 block content
-    img(src="/"+loggeedInUser.avatar_url, width="100", height="100")
-    form(method="POST" enctype="multipart/form-data")
+    img(src="/"+loggedInUser.avatar_url, width="100", height="100")
+    form(method="POST" enctype="multipart/form-data").edit-profile__form
         label(for="avatar") avatar
         input(type="file" id="avatar" name="avatar" accept="image/*")
-        input(name="email", placeholder="email", required, value=loggeedInUser.email)
-        input(name="username", placeholder="username",type="text", required, value=loggeedInUser.username)
-        input(name="name", placeholder="name",type="text", required, value=loggeedInUser.name)
-        input(name="location", placeholder="location",type="text", value=loggeedInUser.location)
+        input(name="email", placeholder="email", required, value=loggedInUser.email)
+        input(name="username", placeholder="username",type="text", required, value=loggedInUser.username)
+        input(name="name", placeholder="name",type="text", required, value=loggedInUser.name)
+        input(name="location", placeholder="location",type="text", value=loggedInUser.location)
         input(type="submit" value="Update")
-        hr
-        if !loggeedInUser.socialOnly 
-            a(href="change-password") change password &rarr;
+        if !loggedInUser.socialOnly 
+            div.edit-profile__password
+                a(href="change-password") Change Password &rarr; 

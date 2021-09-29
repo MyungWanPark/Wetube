@@ -2,9 +2,13 @@ extends layout
 include mixins/videoListTemplate
 
 block content 
-    form(method="GET")
+    form(method="GET").search__form
         input(type=text, placeholder="write word to search", name="keyword")
-        input(type="submit" value="search now")
+        button
+        i.fas.fa-search
 
+        div.video-grid
         each video in videos
             +videoListTemplate(video)
+        else 
+            span.empty__message No videos found 
