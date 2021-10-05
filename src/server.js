@@ -5,6 +5,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./router/rootRouter";
 import userRouter from "./router/userRouter";
 import videoRouter from "./router/videoRouter";
+import apiRouter from "./router/apiRouter";
 import { localMiddleware } from "./middleware";
 
 const app = express();
@@ -34,9 +35,18 @@ app.use((req, res, next) => {
 
 app.use(localMiddleware);
 app.use("/upload", express.static("upload"));
-app.use("/static", express.static("assets"));
+app.use(
+  "/static",
+  express.static("assets"),
+  express.static("node_modules/@ffmpeg/core/dist")
+);
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/video", videoRouter);
-
+app.use("/api", apiRouter);
 export default app;

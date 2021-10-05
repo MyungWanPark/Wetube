@@ -71,11 +71,12 @@ export const postUpload = async (req, res) => {
     },
   } = req;
   const { title, description, hashtags } = req.body;
-  const { path: videoUrl } = req.file;
+  const { video, thumb } = req.files;
   try {
     const newVideo = await Video.create({
       title,
-      videoUrl,
+      videoUrl: video[0].path,
+      thumbUrl: thumb[0].path,
       owner: _id,
       description,
       hashtags: Video.formatHashtags(hashtags),
@@ -128,4 +129,16 @@ export const search = async (req, res) => {
     }).populate("owner");
   }
   return res.render("search", { headTitle: "search", videos });
+};
+
+export const registerViews = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views = video.meta.views + 1;
+  await video.save();
+  return res.sendStatus(200);
 };

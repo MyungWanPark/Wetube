@@ -1,13 +1,23 @@
 extends layout
 
 block content 
-    if errorMessage
-        span=errorMessage
+    div.upload__container
+        div.upload__video
+            video#preview
+            button#actionBtn.social__btn Start Recording
 
-    form(method="POST" enctype="multipart/form-data")
-        label(for="video") video upload 
-        input(type="file" id="video" required, name="video", accept="video/*")
-        input(name="title" type="text" placeholder="write a title" required, maxlength=80)
-        input(name="description" type="text" placeholder="write a description" required, minlength=20)
-        input(name="hashtags" type="text" placeholder="write hashtags and comma" required)
-        input(type="submit" value="upload video")
+        if errorMessage
+                span=errorMessage
+
+        form(method="POST" enctype="multipart/form-data")
+            label(for="video") video upload 
+            input(type="file" id="video" required, name="video", accept="video/*")
+            label(for="thumb") thumbnail upload 
+            input(type="file" id="thumb" required, name="thumb", accept="image/*")
+            input(name="title" type="text" placeholder="write a title" required, maxlength=80)
+            input(name="description" type="text" placeholder="write a description" required, minlength=20)
+            input(name="hashtags" type="text" placeholder="write hashtags and comma" required)
+            input(type="submit" value="upload video")
+
+block scripts 
+    script(src="/static/js/videoRecorder.js") 
