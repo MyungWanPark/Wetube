@@ -1,5 +1,7 @@
 import Video from "../model/Video";
 import User from "../model/User";
+import Comment from "../model/Comment";
+import { async } from "regenerator-runtime";
 
 export const home = async (req, res) => {
   try {
@@ -11,7 +13,7 @@ export const home = async (req, res) => {
 };
 export const see = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate("owner").populate("comment");
 
   if (!video) {
     return res.status(404).render("404", { headTitle: "video not found" });
@@ -57,7 +59,8 @@ export const postEdit = async (req, res) => {
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
-  req.flash("info", "finished Editing");
+
+  req.flash("success", "Changes saved.");
   return res.redirect(`/video/${id}`);
 };
 
@@ -142,4 +145,48 @@ export const registerViews = async (req, res) => {
   video.meta.views = video.meta.views + 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const postComments = async (req, res) => {
+  const {
+    params: { id },
+    body: { text },
+    session: {
+      user: { _id },
+    },
+  } = req;
+
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    owner: _id,
+    text,
+    video: id,
+  });
+  video.comment.push(comment._id);
+  await video.save();
+  return res.status(201).json({ commentId: comment._id });
+};
+
+export const deleteComments = async (req, res) => {
+  const {
+    params: { id },
+    session: {
+      user: { _id },
+    },
+  } = req;
+
+  const selectedComment = await Comment.findById(id);
+
+  if (String(selectedComment.owner) !== String(_id)) {
+    return res.status(403).redirect("/");
+  }
+  const result = await Comment.findByIdAndDelete(id);
+  if (result) {
+    return res.sendStatus(200);
+  } else {
+    return res.sendStatus(500);
+  }
 };

@@ -3,11 +3,13 @@ const path = require("path");
 
 console.log(path.resolve(__dirname, "client"));
 
+const BASE_PATH = "./src/client/js/";
 module.exports = {
   entry: {
-    main: "./src/client/js/main.js",
-    videoPlayer: "./src/client/js/videoPlayer.js",
-    videoRecorder: "./src/client/js/videoRecorder.js",
+    main: BASE_PATH + "main.js",
+    videoPlayer: BASE_PATH + "videoPlayer.js",
+    videoRecorder: BASE_PATH + "videoRecorder.js",
+    commentSection: BASE_PATH + "commentSection.js",
   },
   mode: "development",
   watch: true,

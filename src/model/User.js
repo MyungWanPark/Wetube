@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
   socialOnly: { type: Boolean, default: false },
   location: String,
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+  comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 userSchema.pre("save", async function () {

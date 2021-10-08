@@ -19,17 +19,32 @@ block content
             div 
                 span#fullScreen
                     i.fas.fa-expand
-        //- div
-        //-     h1=video.description 
-        //-     small=video.createdAt
-        //- div 
-        //-     small uploaded by 
-        //-         a(href=`/user/${video.owner._id}`)=video.owner.name
+    div.video__data
+        p.video__title=video.title
+        small.video__owner Uploaded by 
+            a(href=`/users/${video.owner._id}`)=video.owner.name
+        small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+        if String(video.owner._id) === String(loggedInUser._id)
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr;
+        
+    if loggedIn
+        div.video__add-comments
+            form.video__comment-form#commentForm
+                textarea(cols="30", rows="10", placeholder="write a nice comment" )
+                button add comment
 
-        //- if String(video.owner._id) === String(loggedInUser._id) 
-        //-     a(href=`${video.id}/edit`) edit video &rarr;
-        //-     br
-        //-     a(href=`${video.id}/delete`) delete video &rarr;
+    div.video__comments
+        ul
+            each comment1 in video.comment.reverse()
+                li.video__comment(data-id=comment1._id)
+                    i.fas.fa-comment
+                    span #{comment1.text}
+                    if String(comment1.owner._id) === String(loggedInUser._id)
+                        span.deleteSpan ❌
     
 block scripts 
     script(src="/static/js/videoPlayer.js")
+    if loggedIn
+        script(src="/static/js/commentSection.js")
