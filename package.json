@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:assets": "webpack --mode production",
+    "build:server": "babel src -d build",
+    "dev:server": "nodebmon",
+    "dev:assets": "webpack --mode development -w"
   },
   "repository": {
     "type": "git",
@@ -35,6 +39,7 @@
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.0",
     "@babel/node": "^7.14.9",
     "@babel/preset-env": "^7.15.0",

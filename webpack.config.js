@@ -11,8 +11,6 @@ module.exports = {
     videoRecorder: BASE_PATH + "videoRecorder.js",
     commentSection: BASE_PATH + "commentSection.js",
   },
-  mode: "development",
-  watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/styles.css",
