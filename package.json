@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "The best way to watch videos",
   "main": "index.js",
+  "engines": {
+    "node": "16.9.0",
+    "npm": "7.21.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/init.js",
