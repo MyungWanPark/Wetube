@@ -2,7 +2,7 @@ extends layout
 
 block content
     div#videoContainer(data-id=video._id)
-        video(src="/"+video.videoUrl)
+        video(src=video.videoUrl,crossorigin)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn

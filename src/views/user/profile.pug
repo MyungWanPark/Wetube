@@ -3,7 +3,7 @@ include ../mixins/videoListTemplate
 
 block content 
     div.profile__data
-        img(src="/" + user.avatar_url).avatar
+        img(src=user.avatar_url, crossorigin).avatar
         h3=user.name
     div.video-grid
         each potato in user.videos

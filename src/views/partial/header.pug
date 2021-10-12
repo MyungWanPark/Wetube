@@ -19,10 +19,7 @@ header
                             if loggedInUser.avatar_url === ""
                                 span 😀
                             else
-                                if loggedInUser.avatar_url.includes("github")
-                                    img.header__avatar(src=loggedInUser.avatar_url,crossorigin)
-                                else
-                                    img.header__avatar(src="/" + loggedInUser.avatar_url,crossorigin)
+                                img.header__avatar(src=loggedInUser.avatar_url, crossorigin)
         
                 else
                     li

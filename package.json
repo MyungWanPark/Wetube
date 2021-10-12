@@ -13,7 +13,7 @@
     "build": "npm run build:server && npm run build:assets",
     "build:assets": "webpack --mode production",
     "build:server": "babel src -d build",
-    "dev:server": "nodebmon",
+    "dev:server": "nodemon",
     "dev:assets": "webpack --mode development -w"
   },
   "repository": {
@@ -29,8 +29,10 @@
   "dependencies": {
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
+    "aws-sdk": "^2.1005.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.5.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-flash": "^0.0.2",
@@ -38,6 +40,7 @@
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
     "multer": "^1.4.3",
+    "multer-s3": "^2.9.0",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
     "regenerator-runtime": "^0.13.9"

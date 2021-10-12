@@ -179,11 +179,11 @@ export const postEdit = async (req, res) => {
       });
     }
   }
-
+  console.log("file", file);
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatar_url: file ? file.path : avatar_url,
+      avatar_url: file ? file.location : avatar_url,
       email,
       username,
       name,
