@@ -1,6 +1,9 @@
 mixin videoListTemplate(info)
     a(href=`/video/${info.id}`).video-mixin
-        div.video-mixin__thumb(style=`background-image:url(${info.thumbUrl}); background-size:cover; background-position:center;`,crossorigin)
+        if /^https?:\/\//.test(info.thumbUrl)
+            img(src=info.thumbUrl crossorigin).video-mixin__thumb
+        else
+            img(src=`/${info.thumbUrl}`).video-mixin__thumb
         div.video-mixin__data
             span.video-mixin__title=info.title
             div.video-mixin__meta
