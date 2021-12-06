@@ -1,6 +1,6 @@
 # Youtube Clone Coding Project
 
-Javascript와 NodeJS를 활용하여 유튜브 웹사이트를 클론코딩 하였습니다.(디자인은 제외)
+NodeJS, Express, MongoDB를 활용하여 유튜브 웹사이트를 클론코딩 하였습니다.(디자인은 제외)
 
 <br/>
 
@@ -16,40 +16,80 @@ Javascript와 NodeJS를 활용하여 유튜브 웹사이트를 클론코딩 하�
 
 ### Home
 
-저의 사진과 목차를 확인할 수 있는 곳입니다. 
+업로드 된 비디오 목록을 확인 할 수 있습니다. 
 
-<img width="800" alt="port_home-min" src="https://user-images.githubusercontent.com/56289900/144784339-113d5526-9163-48c2-8f8b-463631411d62.PNG">
-
-<br/>
-
-### About
-
-저의 간단한 프로필과 프로그래밍을 학습한 이력, 사용할 수 있는 기술스택을 소개하였습니다.
-
-<img width="800" alt="port_about-min" src="https://user-images.githubusercontent.com/56289900/144784330-cd50d33c-e66f-4e9b-b043-c20db57661c6.PNG">
+<img width="800" alt="wetube_home-min" src="https://user-images.githubusercontent.com/56289900/144786291-ab4d854b-66bf-4d14-9ea6-c271b7095f5b.PNG">
 
 <br/>
 
-### Skills
+### Join
 
-제가 사용 가능한 기술스택과 그 숙련도를 나타내었습니다.
+회원가입을 할 수 있는 페이지 입니다. MongoDB와 연결되어 유저 정보를 저장합니다. 
 
-<img width="800" alt="port_skills-min" src="https://user-images.githubusercontent.com/56289900/144784350-2781f349-dbfa-424b-8d8e-28fe25ce08c9.PNG">
-
-<br/>
-
-### Projects
-
-진행한 프로젝트들을 프론트엔드, 백엔드, 알고리즘으로 카테고리를 나누어 깃허브 링크를 걸었습니다.
-
-<img width="800" alt="port_projects-min" src="https://user-images.githubusercontent.com/56289900/144784345-2c86b3b6-993e-4a87-a4f2-663c01610871.PNG">
+<img width="800" alt="wetube_join-min" src="https://user-images.githubusercontent.com/56289900/144786293-b1c615d1-1b21-45a8-9e0a-8834637c80a4.PNG">
 
 <br/>
 
-### Contact
+### Login
 
-저에게 연락가능한 방법을 표시해두었습니다. 깃허브 로고를 통해 깃허브 링크를 걸었습니다.
+로그인 페이지 입니다. 세션을 활용하여 세션ID로 유저를 판독합니다. 깃허브아이디로 소셜 로그인 기능도 구현하였습니다. 
 
-<img width="800" alt="port_contact-min" src="https://user-images.githubusercontent.com/56289900/144784336-e5b178d7-4a76-47fd-a61c-4ee6d0f8526b.PNG">
+<img width="800" alt="wetube_login-min" src="https://user-images.githubusercontent.com/56289900/144786296-122172a3-1caa-4aaf-9065-3344c72bab9f.PNG">
 
-링크주소: <a href="https://myungwanpark.github.io/portfolio/" target="_blank">포트폴리오 웹사이트 보러가기</a>
+<br/>
+
+### After Login
+
+로그인 한 뒤의 웹사이트 모습입니다. 비디오 업로드, 프로필 수정과 같이 유저 권한이 있는 사람에게 기능을 보여주었습니다. 
+
+<img width="800" alt="wetube_after-login-min" src="https://user-images.githubusercontent.com/56289900/144786308-8fc4450f-22cc-43ed-bbe1-9488cd4f42e3.PNG">
+
+<br/>
+
+### Edit Profile
+
+프로필 정보를 수정하는 페이지 입니다. 로그인 한 유저 정보를 가지고 와서 유저정보를 수정하여 다시 MongoDB로 저장합니다. 
+
+<img width="800" alt="wetube_edit-profile-min" src="https://user-images.githubusercontent.com/56289900/144786290-4d304edd-e371-433b-b780-13ced4411274.PNG">
+
+<br/>
+
+### Upload Video
+
+PC에 연결된 카메라를 활용하여 비디오를 촬영하고, 비디오를 업로드 할 수 있는 페이지 입니다. 
+
+<img width="800" alt="wetube_upload-video-min" src="https://user-images.githubusercontent.com/56289900/144786300-c5d30000-a7a5-4294-9079-bb26d82492a5.PNG">
+
+<br/>
+
+### Update Video
+
+비디오에 대한 정보를 수정할 수 있는 페이지 입니다. 비디오 설명, 해쉬테그 등을 수정할 수 있습니다.  
+
+<img width="800" alt="wetube_update-video-min" src="https://user-images.githubusercontent.com/56289900/144786299-fcb8730d-d427-44f1-9a08-bdd16a10b687.PNG">
+
+<br/>
+
+### Delete Video
+
+비디오를 삭제하는 기능입니다. 해당 비디오ID를 찾아서 DB에서 삭제합니다. 
+
+<img width="454" alt="wetube_editAndDeleteVideo-min" src="https://user-images.githubusercontent.com/56289900/144786288-3abfab85-6a8e-4437-a201-887c794e4893.PNG">
+
+<br/>
+
+### Watch and Comment 
+
+비디오 플레이어를 WebAPIs를 활용하여 직접 만들었고, 해당 비디오에 댓글 추가 삭제 기능을 추가하였습니다. 
+
+<img width="800" alt="wetube_watchAndComment-min" src="https://user-images.githubusercontent.com/56289900/144786306-c7fec17b-2deb-4c49-8498-b6ee5a6967c2.PNG">
+
+<br/>
+
+### Video Search
+
+비디오 제목을 검색하여 해당하는 비디오를 DB에서 검색하여 보여줍니다. 
+
+<img width="800" alt="wetube_search-min" src="https://user-images.githubusercontent.com/56289900/144786298-b69a3468-f3e6-4a34-a039-a4f2343adf00.PNG">
+
+링크주소: <a href="https://wantube.herokuapp.com/" target="_blank">유튜브 웹사이트 보러가기</a>
