@@ -56,7 +56,7 @@ NodeJS, Express, MongoDB를 활용하여 유튜브 웹사이트를 클론코딩 
 
 ### Upload Video
 
-PC에 연결된 카메라를 활용하여 비디오를 촬영하고, 비디오를 업로드 할 수 있는 페이지 입니다. 
+PC에 연결된 카메라를 활용하여 비디오를 촬영하고, 다운로드를 받아 비디오를 업로드 할 수 있는 페이지 입니다. 
 
 <img width="800" alt="wetube_upload-video-min" src="https://user-images.githubusercontent.com/56289900/144786300-c5d30000-a7a5-4294-9079-bb26d82492a5.PNG">
 
